@@ -1,0 +1,21 @@
+.trainings__single {
+    
+    display: flex;
+    border: 1px solid;
+    padding: 11px;
+    justify-content: space-evenly;
+    width: 90%;
+    cursor:no-drop;
+
+}
+
+.trainings__single--text {
+    flex: 1;
+    text-align: left;
+}
+
+.actions span {
+    font-size: 20px;
+    margin: 0px 2px;
+    cursor: pointer;
+}
