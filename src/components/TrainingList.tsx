@@ -20,10 +20,10 @@ const TrainingList: React.FC<propType> = ({
   console.log(trainings);
 
   return (
-    <div className="Training_container">
+    <div className="container">
         
-      <div className="active_container">
-        <h3>Active Trainings</h3>
+      <div className="todos">
+        <span className="todos__heading">Active Trainings</span>
         <ul>
           {trainings.map((item) => (
             <SingleTraining
@@ -36,8 +36,8 @@ const TrainingList: React.FC<propType> = ({
         </ul>
       </div>
 
-      <div className="completed_container">
-        <h3>Completed Trainings</h3>
+      <div className="todos  remove">
+      <span className="todos__heading">Completed Trainings</span>
         <ul>
           {completedTrainings.map((item) => (
             <SingleTraining

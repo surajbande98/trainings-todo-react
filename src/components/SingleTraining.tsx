@@ -1,4 +1,10 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { TrainingModel } from "../TrainingModel";
 
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
@@ -13,18 +19,17 @@ type propType = {
 };
 
 const SingleTraining = ({ training, trainings, setTrainings }: propType) => {
+  const [edit, setEdit] = useState<Boolean>(false);
 
- const [edit, setEdit] = useState<Boolean>(false);
+  const [editValue, setEditvalue] = useState<string>(training.training);
 
- const [editValue, setEditvalue] = useState<string>(training.training);
+  const inputRef = useRef<HTMLInputElement>(null);
 
- const inputRef = useRef<HTMLInputElement>(null);
-
- useEffect(() => {
+  useEffect(() => {
     inputRef.current?.focus();
   }, [edit]);
 
-const handleDone = (id: number) => {
+  const handleDone = (id: number) => {
     setTrainings(
       trainings.map((training: TrainingModel) => {
         return training.id === id
@@ -41,34 +46,43 @@ const handleDone = (id: number) => {
   const handleEdit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
 
-    setTrainings(trainings.map((training) => {
-        return training.id === id ? {...training, training: editValue} : training
-    }))
+    setTrainings(
+      trainings.map((training) => {
+        return training.id === id
+          ? { ...training, training: editValue }
+          : training;
+      })
+    );
 
     setEdit(false);
   };
 
   return (
-    <form className="trainings__single" onSubmit={(e) => handleEdit(e, training.id)}>
-      <span className="trainings__single--text">
-    
-        {
-            edit ? 
-           
-                <input ref={inputRef} value={editValue} onChange={(e) => setEditvalue(e.target.value)}/>
-            :
-            !training.isActive ? <s>{training.training}</s> : training.training
-        }
-      </span>
+    <form
+      className="todos__single "
+      onSubmit={(e) => handleEdit(e, training.id)}
+    >
+      {edit ? (
+        <input
+          className="todos__single--text"
+          ref={inputRef}
+          value={editValue}
+          onChange={(e) => setEditvalue(e.target.value)}
+        />
+      ) : !training.isActive ? (
+        <s>{training.training}</s>
+      ) : (
+        <span className="todos__single--text">{training.training}</span>
+      )}
 
-      <div className="actions">
-        <span onClick={() => {
-            if(!edit && training.isActive) {
-                setEdit(!edit);
+      <div className="icons">
+        <span
+          onClick={() => {
+            if (!edit && training.isActive) {
+              setEdit(!edit);
             }
-        }
-            
-        }>
+          }}
+        >
           <AiFillEdit />
         </span>
         <span onClick={() => handleDelete(training.id)}>

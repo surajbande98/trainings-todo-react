@@ -12,8 +12,8 @@ const AddTraining = ({ training, setTraining, handleAdd }: propType) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="input_wrapper">
-      <form
+   
+      <form className="input"
         onSubmit={(e) => {
           handleAdd(e);
           inputRef.current?.blur();
@@ -26,9 +26,12 @@ const AddTraining = ({ training, setTraining, handleAdd }: propType) => {
           onChange={(e) => setTraining(e.target.value)}
           placeholder="Enter a training name..."
         />
-        <button type="submit">Go</button>
+        <button type="submit"  onClick={(e) => {
+          handleAdd(e);
+          inputRef.current?.blur();
+        }}>Go</button>
       </form>
-    </div>
+  
   );
 };
 

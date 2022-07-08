@@ -32,8 +32,9 @@ function App() {
   return (
     <DragDropContext onDragEnd={() => {}}>
     <div className="App">
-        <div className='main_container'>
-          <h2>Trainings CRUD</h2>
+      <div className='heading'>
+        CRUD Trainings to do
+      </div>
 
           <AddTraining training={training} setTraining={setTraining} handleAdd = {handleAdd}/>
 
@@ -42,7 +43,7 @@ function App() {
           completedTrainings={completedTrainings}
           setCompletedTrainings={setCompletedTrainings}/>
 
-        </div>
+     
     </div>
     </DragDropContext>
 
